@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy – Jar</title>
+<meta name="description" content="Jar's privacy policy: your clipboard history stays on your Mac. No network access, no analytics, no accounts.">
+<meta name="color-scheme" content="light">
+<link rel="icon" type="image/png" href="assets/icon-512.png">
+<meta property="og:title" content="Privacy Policy – Jar">
+<meta property="og:description" content="Jar's privacy policy: your clipboard history stays on your Mac. No network access, no analytics, no accounts.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bakai-dmytro.github.io/jar_clipboard/privacy.html">
+<meta property="og:image" content="https://bakai-dmytro.github.io/jar_clipboard/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Same tokens, top bar and type scale as index.html. */
+:root{--bg:#ffffff;--ink:#1b1c1f;--muted:#6c6f76;--line:#e6e7ea;--soft:#f4f5f6;--accent:#0b6e5f;--mark:#fff3bf;--mark-ink:#5c4400;
+  --font:"Geist","Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color-scheme:light}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 20px;background:var(--bg);color:var(--ink);font:17px/1.65 var(--font);-webkit-font-smoothing:antialiased;overflow-wrap:break-word}
+.col{max-width:720px;margin:0 auto}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion:no-preference){a{transition:color .15s}}
+.top{display:flex;align-items:center;gap:16px;min-height:64px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:600;font-size:1.05rem;letter-spacing:-.01em}
+.brand img{display:block;width:28px;height:28px}
+.top nav{margin-left:auto;display:flex;gap:20px;font-size:.92rem}
+.top nav a{color:var(--muted);text-decoration:none}
+.top nav a:hover,.top nav a[aria-current]{color:var(--ink)}
+.top nav a[aria-current]{text-decoration-line:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:8px}
+h1{font-size:clamp(2rem,7vw,2.6rem);line-height:1.12;margin:0 0 .4em;font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+p,ul{margin:0 0 1em}
+ul{padding-left:1.25em}
+li{margin:.6em 0}
+mark{background:var(--mark);color:var(--mark-ink);border-radius:3px;padding:0 .25em}
+.muted{color:var(--muted)}
+.doc{padding:64px 0 72px}
+.foot{border-top:1px solid var(--line);padding:28px 0 56px;font-size:.85rem;color:var(--muted)}
+.foot p{margin:0}
+.foot a{color:var(--muted);text-decoration-color:var(--line)}
+.foot a:hover{color:var(--ink)}
+@media (max-width:600px){.doc{padding:44px 0 56px}}
+</style>
+</head>
+<body>
+<header class="col top">
+  <a class="brand" href="./"><img src="assets/icon-512.png" alt="" width="28" height="28">Jar</a>
+  <nav aria-label="Main"><a href="./#faq">FAQ</a><a href="privacy.html" aria-current="page">Privacy</a><a href="support.html">Support</a></nav>
+</header>
+<main id="main" class="col doc">
+  <!-- Source of truth: docs/privacy.md. This page is that text with the product name ("Copy" → "Jar") and the
+       contact line changed; docs/privacy.md says "Contact: the issue tracker of this repository". Keep both in sync.
+       If the sandbox check shows the text-cursor lookup does not work, remove the "Separately, where macOS allows
+       it…" sentence here and in docs/privacy.md (see docs/app-store-notes.md, checklist item 3). -->
+  <h1>Jar — Privacy Policy</h1>
+  <p class="muted">Last updated: November 23, 2026</p>
+  <p>Jar is a clipboard history app for macOS.</p>
+  <ul>
+    <li>Everything you copy is stored only on your Mac, inside Jar's own sandboxed container.</li>
+    <li>Jar has no network access of any kind. It cannot send data anywhere. There are no analytics, no accounts, and no crash reporting beyond what macOS itself provides.</li>
+    <li>Jar ignores content marked as confidential or transient by other apps (password managers in particular), and lets you exclude any app from capture.</li>
+    <li>You can delete individual items, clear the history, or remove all of Jar's data with Settings → History → “Clear everything, including pins…” (macOS keeps an app's container folder when the app is moved to the Trash; delete it to remove every trace).</li>
+    <li>The optional “direct paste” permission (shown by macOS under Accessibility) is used only to press ⌘V on your behalf after you choose an item. Separately, where macOS allows it, Jar reads only the on-screen position of the text cursor in the frontmost app, to open its window next to it; Jar never reads the text or any other content of other apps.</li>
+  </ul>
+  <p>Contact: <a href="mailto:dmytro.bakai@gmail.com">dmytro.bakai@gmail.com</a></p>
+</main>
+<footer class="col foot">
+  <p><a href="./">Home</a> · <a href="support.html">Support</a> · Mac App Store: coming soon · © 2026 Dmytro Bakai</p>
+</footer>
+</body>
+</html>

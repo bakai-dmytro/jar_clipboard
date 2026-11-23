@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jar – Clipboard History for Mac</title>
+<meta name="description" content="Jar keeps everything you copy on your Mac. Press ⌥V wherever you type, pick an item, and it pastes. Free, private, no account.">
+<meta name="color-scheme" content="light">
+<link rel="icon" type="image/png" href="assets/icon-512.png">
+<link rel="apple-touch-icon" href="assets/icon-512.png">
+<meta property="og:title" content="Jar – Clipboard History for Mac">
+<meta property="og:description" content="Your clipboard, remembered. Private, keyboard-first, free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bakai-dmytro.github.io/jar_clipboard/">
+<meta property="og:image" content="https://bakai-dmytro.github.io/jar_clipboard/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Light, quiet product page: centered statements, one wide stage per idea, real renders of the app on soft gray grounds.
+   Ink for type, one teal (the jar) for links, selection and the active demo step. */
+:root{
+  --bg:#ffffff; --ink:#1b1c1f; --muted:#6c6f76; --faint:#9a9da4; --line:#e6e7ea; --soft:#f4f5f6; --accent:#0b6e5f; --accent-soft:#e3f1ee;
+  --sans:"Geist","Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --wide:1040px; --text:680px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;
+  padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+img{max-width:100%;height:auto}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-weight:600;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.4rem,6.4vw,3.9rem);line-height:1.06;letter-spacing:-.035em;font-weight:500}
+h2{font-size:clamp(1.9rem,4.6vw,2.9rem);line-height:1.08;letter-spacing:-.03em}
+h3{font-size:1.06rem;line-height:1.3;letter-spacing:-.01em}
+p{margin:0}
+kbd{display:inline-flex;align-items:center;justify-content:center;min-width:1.75em;height:1.55em;padding:0 .4em;font:500 .82em/1 var(--mono);color:var(--ink);
+  background:var(--bg);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;vertical-align:.08em;white-space:nowrap}
+code{font:.88em var(--mono);background:var(--soft);padding:.12em .4em;border-radius:5px;overflow-wrap:anywhere}
+.wrap{max-width:var(--wide);margin:0 auto}
+.narrow{max-width:var(--text);margin-left:auto;margin-right:auto}
+.center{text-align:center}
+.eyebrow{font:500 .8rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+.lead{font-size:clamp(1.1rem,2.2vw,1.3rem);line-height:1.5;color:var(--muted);margin-top:20px}
+
+/* Header */
+.top{display:flex;align-items:center;gap:20px;min-height:60px}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:1.02rem;letter-spacing:-.01em}
+.brand:hover{text-decoration:none}
+.brand img{width:26px;height:26px;display:block}
+.top nav{margin-left:auto;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 22px;font-size:.9rem}
+.top nav a{color:var(--muted)}
+.top nav a:hover{color:var(--ink);text-decoration:none}
+
+/* Hero */
+.hero{padding-block:72px 40px;text-align:center}
+.hero .icon{width:96px;height:96px;display:block;margin:0 auto 28px}
+.hero .lead{max-width:600px;margin-left:auto;margin-right:auto}
+.cta{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px 28px;margin-top:34px}
+.soon{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;background:var(--ink);color:var(--bg);font-weight:500;font-size:.98rem}
+.fine{margin-top:16px;font-size:.86rem;color:var(--faint)}
+.showcase{margin-top:56px;border-radius:32px;background:radial-gradient(120% 90% at 50% 0%,var(--accent-soft) 0%,var(--soft) 60%);padding:clamp(16px,5vw,48px) 16px 0;overflow:hidden}
+.showcase img{display:block;margin:0 auto;width:472px}
+
+/* Sections */
+.sec{padding-block:112px 0}
+.sec > .head{text-align:center;max-width:var(--text);margin:0 auto}
+
+/* Demo */
+.demo{margin-top:52px}
+.stage-box{position:relative;border-radius:28px;background:var(--soft);overflow:hidden;aspect-ratio:880/600;max-width:100%}
+.stage{position:absolute;left:0;top:0;width:880px;height:600px;transform-origin:0 0;font-family:var(--sans)}
+.scene{position:absolute;inset:0;transition:opacity .45s ease}
+.scene.off{opacity:0;pointer-events:none}
+.jar{position:absolute;left:404px;top:72px;width:72px;height:72px}
+.jar.bump{animation:bump .32s ease}
+@keyframes bump{50%{transform:scale(1.14)}}
+.copies{position:absolute;left:40px;right:40px;top:176px;display:grid;gap:24px;text-align:center}
+.copies .k{display:block;font:500 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.copies .t{font-size:21px;line-height:1.4;padding:2px 6px;border-radius:6px;transition:background-color .2s}
+.copies .t.mono{font-family:var(--mono);font-size:19px}
+.copies .t.sel{background:#bfe3dc}
+.ghost{position:absolute;white-space:nowrap;font-size:21px;padding:2px 6px;border-radius:6px;background:#bfe3dc;color:var(--ink);pointer-events:none}
+.who{position:absolute;left:64px;top:52px;font:500 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.msg{position:absolute;left:64px;right:48px;top:80px;font-size:25px;line-height:42px;letter-spacing:-.01em}
+.msg p{white-space:nowrap;min-height:42px}
+.msg p.off{visibility:hidden}
+.ins{border-radius:5px;transition:background-color .9s ease}
+.ins.new{background:#bfe3dc}
+.caret{display:inline-block;width:2px;height:30px;background:var(--ink);vertical-align:-6px;margin-left:1px;animation:blink 1.06s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.panel{position:absolute;width:378px;height:442px;opacity:0;transform:translateY(-4px) scale(.985);transform-origin:30px 30px;transition:opacity .16s ease,transform .16s ease}
+.panel.on{opacity:1;transform:none}
+.panel img{position:absolute;inset:0;width:100%;height:100%;opacity:0}
+.panel img.on{opacity:1}
+.callout{position:absolute;margin:0;display:flex;align-items:center;gap:8px;padding:8px 14px 8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(20,24,28,.08);font:500 15px/1 var(--sans);color:var(--ink);opacity:0;transform:translateX(-6px);transition:opacity .2s ease,transform .2s ease;white-space:nowrap}
+.callout::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.callout.on{opacity:1;transform:none}
+.keys{position:absolute;right:44px;bottom:40px;display:flex;gap:10px;opacity:0;transform:translateY(6px);transition:opacity .15s ease,transform .15s ease}
+.keys.on{opacity:1;transform:none}
+.keys span{display:inline-flex;align-items:center;justify-content:center;min-width:58px;height:58px;padding:0 16px;border-radius:14px;background:#fff;border:1px solid var(--line);
+  box-shadow:0 1px 0 var(--line),0 8px 24px rgba(20,24,28,.08);font:500 26px/1 var(--sans);color:var(--ink)}
+.play{position:absolute;right:16px;top:16px;z-index:2;display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px 0 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.85);color:var(--ink);font:500 .82rem/1 var(--sans);cursor:pointer}
+.play svg{width:12px;height:12px;fill:currentColor}
+.play:hover{background:#fff}
+.steps{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:960px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.steps button{all:unset;box-sizing:border-box;display:flex;flex-direction:column;justify-content:flex-start;width:100%;height:100%;padding:18px 20px 20px;border-radius:0 0 16px 16px;cursor:pointer;color:var(--muted);border-top:2px solid var(--line);transition:color .2s,border-color .2s,background-color .2s}
+.steps button:hover{background:var(--soft)}
+.steps button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.steps button[aria-current="step"]{color:var(--ink);border-top-color:var(--accent)}
+.steps .n{display:block;font:500 .78rem/1 var(--mono);color:var(--faint);margin-bottom:10px}
+.steps button[aria-current="step"] .n{color:var(--accent)}
+.steps b{display:block;font-weight:600;font-size:1.04rem;margin-bottom:4px;color:var(--ink)}
+.steps span.d{font-size:.93rem;line-height:1.5}
+
+/* Feature tiles */
+.tiles{margin-top:52px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.tile{background:var(--soft);border-radius:24px;padding:30px 30px 32px;min-width:0}
+.tile .g,.split .g{font:500 1.5rem/1 var(--sans);letter-spacing:-.02em;color:var(--accent);margin-bottom:22px;display:flex;gap:6px;align-items:center;min-height:34px}
+.tile .g kbd,.split .g kbd{font-size:1.05rem;height:1.7em;min-width:1.9em}
+.tile p{color:var(--muted);margin-top:8px;font-size:.98rem}
+.split{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:24px;background:var(--soft);border-radius:24px;padding:40px 40px 0 48px;overflow:hidden}
+.split .copy{padding-bottom:40px}
+.split .copy p{color:var(--muted);margin-top:10px}
+.split img{display:block;width:100%;max-width:400px;justify-self:center;margin-bottom:-12px}
+
+/* Shortcuts */
+.keylist{margin:44px auto 0;max-width:var(--text);border-top:1px solid var(--line)}
+.keylist div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding:13px 0;border-bottom:1px solid var(--line);align-items:center}
+.keylist dt{display:flex;flex-wrap:wrap;gap:4px}
+.keylist dd{margin:0;color:var(--muted)}
+.note{margin-top:16px;font-size:.9rem;color:var(--faint);text-align:center}
+
+/* Permission */
+.pair{margin-top:44px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.pair .tile ul{margin:12px 0 0;padding-left:1.1em;color:var(--muted);font-size:.98rem}
+.pair .tile li{margin:.4em 0}
+
+/* Compare + FAQ */
+details.cmp-wrap{margin:56px auto 0;max-width:var(--text);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+details.cmp-wrap > summary{padding:20px 0}
+.wide{overflow-x:auto;margin-top:8px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:760px}
+th,td{padding:10px 14px 10px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+thead th{color:var(--faint);font:500 .7rem/1.3 var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.cmp th[scope=row]{font-weight:600;min-width:140px}
+caption{caption-side:bottom;text-align:left;padding-top:12px;font-size:.84rem;color:var(--faint)}
+sup{font-size:.7em;line-height:0}
+sup a{text-decoration:none}
+.src{font-size:.82rem;color:var(--muted);padding-left:1.4em;columns:2 260px;column-gap:28px;margin:12px 0 24px}
+.src li{margin:0 0 .3em;break-inside:avoid}
+.cmp-note{font-size:.9rem;color:var(--muted);margin:20px 0}
+.cmp-src{font-size:.95rem;margin-top:24px}
+.faq{max-width:var(--text);margin:44px auto 0;border-top:1px solid var(--line)}
+summary{position:relative;cursor:pointer;list-style:none;padding:18px 36px 18px 0;font-weight:500}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";position:absolute;right:6px;top:50%;width:9px;height:9px;margin-top:-7px;border-right:1.5px solid var(--faint);border-bottom:1.5px solid var(--faint);transform:rotate(45deg);transition:transform .2s}
+details[open] > summary::after{transform:rotate(-135deg);margin-top:-2px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details p{color:var(--muted);padding:0 0 20px}
+
+/* Closing + footer */
+.closing{padding-block:120px 96px;text-align:center}
+.closing .icon{width:72px;height:72px;margin:0 auto 24px;display:block}
+.foot{border-top:1px solid var(--line);padding-block:28px 48px;font-size:.84rem;color:var(--faint);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+.foot nav{display:flex;flex-wrap:wrap;gap:6px 20px}
+.foot a{color:var(--muted)}
+.mail{user-select:all}
+
+@media (max-width:760px){
+  .hero{padding-block:44px 24px}
+  .sec{padding-block:80px 0}
+  .tiles,.pair{grid-template-columns:minmax(0,1fr)}
+  .split{grid-template-columns:minmax(0,1fr);padding:32px 24px 0}
+  .split .copy{padding-bottom:8px}
+  .steps{grid-template-columns:minmax(0,1fr);gap:4px}
+  .steps button{padding:14px 16px}
+  .keylist div{grid-template-columns:120px minmax(0,1fr)}
+  .stage-box{border-radius:18px}
+  .play{right:10px;top:10px}
+}
+@media (prefers-reduced-motion:reduce){.caret{animation:none}.scene,.panel,.keys,.copies .t,.ins{transition:none}}
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <a class="brand" href="./"><img src="assets/icon-512.png" alt="" width="26" height="26">Jar</a>
+  <nav aria-label="Main"><a href="#how">How it works</a><a href="#shortcuts">Shortcuts</a><a href="#privacy">Privacy</a><a href="support.html">Support</a></nav>
+</header>
+
+<main id="main">
+<section class="wrap hero">
+  <img class="icon" src="assets/icon-512.png" alt="" width="96" height="96">
+  <p class="eyebrow">Clipboard history for Mac</p>
+  <h1>Your clipboard,<br>remembered.</h1>
+  <p class="lead">Jar keeps what you copy, privately on your Mac. Press <kbd>⌥V</kbd> wherever you type to paste any of it again.</p>
+  <div class="cta">
+    <span class="soon">Coming soon to the Mac App Store</span>
+    <a href="#how">See how it works</a>
+  </div>
+  <p class="fine">Free · macOS 15 or later · No account</p>
+  <div class="showcase">
+    <img src="assets/shots/panel-light.png" alt="The Jar panel: a search field, a pinned address at the top, then recent items: a git command, a docs link, a note, an API key shown masked with a lock, and a picture." width="472" height="552">
+  </div>
+</section>
+
+<section id="how" class="wrap sec">
+  <div class="head">
+    <p class="eyebrow">How it works</p>
+    <h2>Copy. Press ⌥V. Paste.</h2>
+    <p class="lead">Nothing new to learn. Keep copying the way you do, and reach back for anything when you need it.</p>
+  </div>
+  <div class="demo">
+    <div class="stage-box" id="stageBox">
+      <button class="play" id="play" type="button" aria-pressed="false"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z"/></svg><span>Play</span></button>
+      <div class="stage" id="stage" role="img" aria-label="Demo: a note, an API key and a link are copied. In a message, Option V opens the Jar panel under the text cursor; the Down arrow selects the link and Return pastes it. Then typing gym finds a New Year's resolution copied on January 1, and Return pastes it. Last, typing token finds the API key, shown masked with a lock and the time until it is deleted.">
+        <div class="scene off" id="sceneCopy">
+          <img class="jar" id="jar" src="assets/icon-512.png" alt="">
+          <div class="copies">
+            <div><span class="k">An API key</span><span class="t mono">ghp_R8zK2mQ4vX7nT1pL9wY3cB6dF0hJ5sA2eG4k</span></div>
+            <div><span class="k">A link</span><span class="t">https://acme.dev/docs/getting-started</span></div>
+            <div><span class="k">A note</span><span class="t">Team sync moved to Thursday, 3:30 pm.</span></div>
+          </div>
+        </div>
+        <div class="scene" id="scenePaste">
+          <p class="who">Message to Anna</p>
+          <div class="msg">
+            <p id="l1">The docs are here: <span class="ins" id="i1"></span></p>
+            <p id="l2" class="off">P.S. <span class="ins" id="i2"></span></p>
+          </div>
+          <span class="caret" id="caret"></span>
+          <div class="panel" id="panel">
+            <img data-s="open" src="assets/shots/demo-open-light.png" alt="">
+            <img data-s="down" src="assets/shots/demo-down-light.png" alt="">
+            <img data-s="g" src="assets/shots/demo-q-g-light.png" alt="">
+            <img data-s="gy" src="assets/shots/demo-q-gy-light.png" alt="">
+            <img data-s="gym" src="assets/shots/demo-q-gym-light.png" alt="">
+            <img data-s="t" src="assets/shots/demo-q-t-light.png" alt="">
+            <img data-s="to" src="assets/shots/demo-q-to-light.png" alt="">
+            <img data-s="tok" src="assets/shots/demo-q-tok-light.png" alt="">
+            <img data-s="toke" src="assets/shots/demo-q-toke-light.png" alt="">
+            <img data-s="token" src="assets/shots/demo-q-token-light.png" alt="">
+          </div>
+          <p class="callout" id="callout">Copied on January 1</p>
+        </div>
+        <div class="keys" id="keys" aria-hidden="true"></div>
+      </div>
+    </div>
+    <ol class="steps" id="steps">
+      <li><button type="button" data-ch="0"><span class="n">1</span><b>Copy as usual</b><span class="d">Text, links, code and images are kept on your Mac.</span></button></li>
+      <li><button type="button" data-ch="1"><span class="n">2</span><b>Press ⌥V, pick, ↩</b><span class="d">Your history opens under the text cursor. <kbd>↩</kbd> pastes the selected item.</span></button></li>
+      <li><button type="button" data-ch="2"><span class="n">3</span><b>Search months back</b><span class="d">Type a few letters. Jar keeps 1,000 items by default, for as long as you like.</span></button></li>
+      <li><button type="button" data-ch="3"><span class="n">4</span><b>Secrets stay masked</b><span class="d">Keys, passwords and card numbers show masked and are deleted after 10 minutes.</span></button></li>
+    </ol>
+  </div>
+</section>
+
+<section class="wrap sec">
+  <div class="head">
+    <p class="eyebrow">Made for the keyboard</p>
+    <h2>Fast when you need it.<br>Invisible when you don’t.</h2>
+  </div>
+  <div class="tiles">
+    <div class="tile"><div class="g">Aa</div><h3>Search as you type</h3><p>Matches the exact characters you type, anywhere in an item. <code>user_id</code> finds <code>user_id</code>.</p></div>
+    <div class="tile"><div class="g"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.6 2.6a1 1 0 0 1 1.4 0l4.4 4.4a1 1 0 0 1 0 1.4l-.9.9a2 2 0 0 1-2 .5l-3.2 3.2a5 5 0 0 1-1.2 5l-.7.7a1 1 0 0 1-1.4 0l-3.2-3.2-4.6 4.6a1 1 0 0 1-1.4-1.4l4.6-4.6-3.2-3.2a1 1 0 0 1 0-1.4l.7-.7a5 5 0 0 1 5-1.2l3.2-3.2a2 2 0 0 1 .5-2z"/></svg></div><h3>Pin what you reuse</h3><p>Addresses, replies, commands. Pinned items stay at the top and are never removed automatically.</p></div>
+    <div class="tile"><div class="g"><kbd>⇧</kbd><kbd>↩</kbd></div><h3>Plain text when you want it</h3><p>Formatting is kept when the app provides it. <kbd>⇧↩</kbd> pastes without it, and images paste as images.</p></div>
+    <div class="tile"><div class="g">1,000</div><h3>A history that lasts</h3><p>Keeps 1,000 items by default, up to 10,000. Choose how long, or let pins be the only things that stay.</p></div>
+  </div>
+  <div class="split">
+    <div class="copy">
+      <div class="g"><kbd>⌘</kbd><kbd>1</kbd></div>
+      <h3>Hold ⌘ for quick paste</h3>
+      <p>Numbers appear on the first nine items. Press <kbd>⌘1</kbd>–<kbd>⌘9</kbd> to paste one without moving the selection.</p>
+    </div>
+    <img src="assets/shots/panel-command-light.png" alt="The Jar panel while ⌘ is held: each of the first items shows its number, ⌘1 to ⌘6." width="472" height="552" loading="lazy">
+  </div>
+</section>
+
+<section id="shortcuts" class="wrap sec">
+  <div class="head">
+    <p class="eyebrow">Shortcuts</p>
+    <h2>Everything from the keyboard.</h2>
+  </div>
+  <dl class="keylist">
+    <div><dt><kbd>⌥V</kbd></dt><dd>Open or close the panel. You can change it in Settings.</dd></div>
+    <div><dt><kbd>↩</kbd></dt><dd>Paste the selected item</dd></div>
+    <div><dt><kbd>⇧↩</kbd></dt><dd>Paste as plain text</dd></div>
+    <div><dt><kbd>⌘1</kbd>–<kbd>⌘9</kbd></dt><dd>Paste one of the first nine items</dd></div>
+    <div><dt><kbd>↑</kbd><kbd>↓</kbd></dt><dd>Move the selection</dd></div>
+    <div><dt><kbd>Space</kbd></dt><dd>Preview the whole item</dd></div>
+    <div><dt><kbd>⌘P</kbd></dt><dd>Pin or unpin</dd></div>
+    <div><dt><kbd>⌘⌫</kbd></dt><dd>Delete the item</dd></div>
+    <div><dt><kbd>Esc</kbd></dt><dd>Clear the search, then close the panel</dd></div>
+  </dl>
+  <p class="note">Press <kbd>?</kbd> in the panel (or <kbd>⌘/</kbd>) to see them all. A click on an item pastes it too.</p>
+</section>
+
+<section id="privacy" class="wrap sec">
+  <div class="head">
+    <p class="eyebrow">Privacy</p>
+    <h2>Your clipboard never leaves your Mac.</h2>
+    <p class="lead">A clipboard sees passwords, tokens and private notes. Jar is built so none of it can go anywhere.</p>
+  </div>
+  <div class="tiles">
+    <div class="tile"><h3>No network access</h3><p>The app is sandboxed with no network permission at all, so it cannot send anything. No sync, by design.</p></div>
+    <div class="tile"><h3>No account, no analytics</h3><p>Nothing to sign up for. No tracking, no telemetry, no crash-reporting SDK.</p></div>
+    <div class="tile"><h3>Skips password managers</h3><p>Copies that password managers mark as private are never saved. Apple Passwords, Keychain Access and 1Password are ignored, and you can add any app.</p></div>
+    <div class="tile"><h3>Masks secrets</h3><p>API keys, tokens, private keys, passwords in config lines and card numbers show up masked, stay out of search and are deleted after 10 minutes. They still paste normally.</p></div>
+    <div class="tile"><h3>Forget on demand</h3><p>Forget the last 5 to 60 minutes, skip the next copy, or pause from the menu bar.</p></div>
+    <div class="tile"><h3>Deleted means deleted</h3><p>Deleting an item erases it from Jar’s database, not just from the list.</p></div>
+  </div>
+</section>
+
+<section class="wrap sec">
+  <div class="head">
+    <p class="eyebrow">One optional permission</p>
+    <h2>Pasting for you needs your OK.</h2>
+    <p class="lead">To paste into another app, Jar presses <kbd>⌘V</kbd> for you. macOS lists this under Accessibility, and Jar asks once, on first launch.</p>
+  </div>
+  <div class="pair">
+    <div class="tile"><h3>With it</h3><ul><li><kbd>↩</kbd>, <kbd>⌘1</kbd>–<kbd>⌘9</kbd> or a click pastes straight into your app.</li><li>The panel opens next to your text cursor.</li></ul></div>
+    <div class="tile"><h3>Without it</h3><ul><li>The item goes on your clipboard, and you press <kbd>⌘V</kbd>.</li><li>Everything else works the same.</li></ul></div>
+  </div>
+  <p class="note">Jar reads only where your text cursor is on screen, never the text in other apps. <a href="support.html#enable">Turning direct paste on</a></p>
+</section>
+
+<section id="faq" class="wrap sec">
+  <div class="head">
+    <p class="eyebrow">Questions</p>
+    <h2>Good to know.</h2>
+  </div>
+  <div class="faq">
+    <details><summary>How much does it cost?</summary><p>Jar is free. There is no account and nothing to sign up for.</p></details>
+    <details><summary>Why not use the clipboard history in Spotlight?</summary><p>macOS 26 has one: press ⌘Space, then ⌘4. It keeps items for up to 7 days, and you paste with ⌘V yourself. Jar keeps history as long as you like, adds pins and its own shortcut, ignores the apps you choose, and can paste for you.</p></details>
+    <details><summary>Will it save my passwords and API keys?</summary><p>It skips copies that password managers mark as private, and ignores Apple Passwords, Keychain Access and 1Password by default. When you copy something that looks like a secret from anywhere else, such as an API key, a token, a private key, a <code>PASSWORD=</code> line or a card number, Jar shows it masked, leaves it out of search and deletes it after 10 minutes. You can change the time or choose not to save secrets at all. Detection works by known patterns, so a secret in an unusual format can slip through; ignore that app or pause capture when in doubt.</p></details>
+    <details><summary>What does it keep?</summary><p>Text (with its formatting when available) and images. It does not keep copied files. Text over 5 MB and images over 25 MB are skipped.</p></details>
+    <details><summary>Can I change ⌥V?</summary><p>Yes, in Settings → General. ⌥V normally types a character (√ on a US keyboard), and Jar takes it over in every app, so pick another shortcut if you use it.</p></details>
+    <details><summary>Does it sync with iCloud or my iPhone?</summary><p>No. Jar has no network access at all. Your history exists only on the Mac where you copied it.</p></details>
+    <details><summary>Is Jar related to Java's jar tool?</summary><p>No. Jar is a clipboard history app for macOS and has nothing to do with Java archives.</p></details>
+  </div>
+  <details class="cmp-wrap">
+    <summary>Compare Jar with Maccy, Paste, Raycast and Spotlight</summary>
+  <p class="cmp-note">Facts as of November 22, 2026, each with a source. Jar facts describe version 1.0. Corrections are welcome at <span class="mail">dmytro.bakai@gmail.com</span>.</p>
+  <div class="wide" role="region" aria-labelledby="cmp-cap" tabindex="0">
+    <table class="cmp">
+      <caption id="cmp-cap">Feature comparison. “—” means we did not verify it. Scroll sideways on small screens.</caption>
+      <thead><tr><th scope="col">Feature</th><th scope="col">Jar 1.0</th><th scope="col">Maccy 2.8.0</th><th scope="col">Paste</th><th scope="col">Raycast Clipboard History</th><th scope="col">Spotlight (macOS 26)</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Price</th><td>Free</td><td>Free from GitHub and Homebrew, or $9.99 on the Mac App Store<sup><a href="#s1" aria-label="Source 1">1</a>,<a href="#s2" aria-label="Source 2">2</a></sup></td><td>Subscription: $29.99 a year; lifetime option listed<sup><a href="#s3" aria-label="Source 3">3</a></sup></td><td>In the free plan; Pro is $10 a month or $96 a year. Not on the App Store<sup><a href="#s4" aria-label="Source 4">4</a></sup></td><td>Free, built in</td></tr>
+        <tr><th scope="row">History kept</th><td>Up to 10,000 items (1,000 by default); pins kept</td><td>Up to 999 items (200 by default)<sup><a href="#s5" aria-label="Source 5">5</a></sup></td><td>Unlimited<sup><a href="#s3" aria-label="Source 3">3</a></sup></td><td>3 months free; unlimited with Pro<sup><a href="#s4" aria-label="Source 4">4</a></sup></td><td>30 min, 8 h or 7 days<sup><a href="#s6" aria-label="Source 6">6</a></sup></td></tr>
+        <tr><th scope="row">Pinned items</th><td>Yes, in a section at the top</td><td>Yes<sup><a href="#s1" aria-label="Source 1">1</a></sup></td><td>Yes, pinboards<sup><a href="#s3" aria-label="Source 3">3</a></sup></td><td>Yes<sup><a href="#s7" aria-label="Source 7">7</a></sup></td><td>No<sup><a href="#s8" aria-label="Source 8">8</a></sup></td></tr>
+        <tr><th scope="row">How you open it</th><td><kbd>⌥V</kbd>, configurable</td><td><kbd>⇧⌘C</kbd>, configurable<sup><a href="#s1" aria-label="Source 1">1</a></sup></td><td>—</td><td>—</td><td><kbd>⌘Space</kbd>, then <kbd>⌘4</kbd><sup><a href="#s9" aria-label="Source 9">9</a></sup></td></tr>
+        <tr><th scope="row">Return pastes into the app you were using</th><td>Yes, with the optional Accessibility permission; otherwise it copies and asks you to press ⌘V</td><td>Copies by default; pasting is an opt-in setting<sup><a href="#s1" aria-label="Source 1">1</a></sup></td><td>Yes, with the Accessibility permission<sup><a href="#s10" aria-label="Source 10">10</a></sup></td><td>Yes<sup><a href="#s7" aria-label="Source 7">7</a></sup></td><td>No: copy, then press ⌘V yourself<sup><a href="#s9" aria-label="Source 9">9</a></sup></td></tr>
+        <tr><th scope="row">Search</th><td>Exact text, ignoring case, in the first 20,000 characters of each item</td><td>Exact by default, plus fuzzy, regex and mixed modes; first 1,000 characters<sup><a href="#s11" aria-label="Source 11">11</a></sup></td><td>Search with filters by app, type, date and device<sup><a href="#s3" aria-label="Source 3">3</a></sup></td><td>Search with a type filter<sup><a href="#s7" aria-label="Source 7">7</a></sup></td><td>—</td></tr>
+        <tr><th scope="row">Finds text inside images (OCR)</th><td>No</td><td>Yes<sup><a href="#s12" aria-label="Source 12">12</a></sup></td><td>Yes<sup><a href="#s3" aria-label="Source 3">3</a></sup></td><td>Yes<sup><a href="#s7" aria-label="Source 7">7</a></sup></td><td>—</td></tr>
+        <tr><th scope="row">Skips password-manager items</th><td>Yes; Passwords, Keychain Access and 1Password ignored by default</td><td>Yes<sup><a href="#s13" aria-label="Source 13">13</a></sup></td><td>Yes; notes that some browser extensions slip through<sup><a href="#s14" aria-label="Source 14">14</a></sup></td><td>Passwords and Keychain are on its disabled-apps list by default<sup><a href="#s7" aria-label="Source 7">7</a></sup></td><td>Relies on apps marking copies as concealed<sup><a href="#s8" aria-label="Source 8">8</a></sup></td></tr>
+        <tr><th scope="row">Ignore apps you choose</th><td>Yes</td><td>Yes, plus an allow-list mode<sup><a href="#s13" aria-label="Source 13">13</a></sup></td><td>Yes<sup><a href="#s14" aria-label="Source 14">14</a></sup></td><td>Yes<sup><a href="#s7" aria-label="Source 7">7</a></sup></td><td>No<sup><a href="#s8" aria-label="Source 8">8</a></sup></td></tr>
+        <tr><th scope="row">Paste several items in order</th><td>No</td><td>No (built, then disabled)<sup><a href="#s15" aria-label="Source 15">15</a></sup></td><td>Yes, Paste Stack<sup><a href="#s16" aria-label="Source 16">16</a></sup></td><td>Yes, Paste Sequentially<sup><a href="#s7" aria-label="Source 7">7</a></sup></td><td>—</td></tr>
+        <tr><th scope="row">Forget the last few minutes</th><td>Yes, 5 to 60 minutes, plus Ignore Next Copy</td><td>—</td><td>—</td><td>Yes, 5 minutes to 24 hours<sup><a href="#s7" aria-label="Source 7">7</a></sup></td><td>Clear all only<sup><a href="#s6" aria-label="Source 6">6</a></sup></td></tr>
+        <tr><th scope="row">Sync across devices</th><td>No, by design</td><td>No (planned for Maccy 3)<sup><a href="#s17" aria-label="Source 17">17</a></sup></td><td>Yes, iCloud<sup><a href="#s3" aria-label="Source 3">3</a></sup></td><td>Yes, with Pro<sup><a href="#s4" aria-label="Source 4">4</a></sup></td><td>—</td></tr>
+        <tr><th scope="row">App Store privacy label</th><td>Data Not Collected</td><td>Data Not Collected<sup><a href="#s2" aria-label="Source 2">2</a></sup></td><td>Lists Device ID, Purchases, Usage Data and Crash Data<sup><a href="#s3" aria-label="Source 3">3</a></sup></td><td>Not on the App Store</td><td>Part of macOS</td></tr>
+        <tr><th scope="row">Minimum macOS</th><td>15</td><td>14<sup><a href="#s2" aria-label="Source 2">2</a></sup></td><td>14<sup><a href="#s3" aria-label="Source 3">3</a></sup></td><td>—</td><td>26</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cmp-note">Credit where it is due: Maccy is free, open source (MIT) and has features Jar lacks, such as text recognition in images, Shortcuts actions and many more languages. Paste and Raycast offer sync, sequential paste and much more. If you need those, they are good choices.</p>
+  <h3 class="cmp-src">Sources (accessed November 22, 2026)</h3>
+  <ol class="src">
+    <li id="s1"><a href="https://github.com/p0deje/Maccy">Maccy README</a></li>
+    <li id="s2"><a href="https://apps.apple.com/us/app/maccy/id1527619437">Maccy on the Mac App Store</a></li>
+    <li id="s3"><a href="https://apps.apple.com/us/app/paste-limitless-clipboard/id967805235">Paste on the App Store</a></li>
+    <li id="s4"><a href="https://www.raycast.com/pricing">Raycast pricing</a></li>
+    <li id="s5"><a href="https://github.com/p0deje/Maccy/blob/master/Maccy/Settings/StorageSettingsPane.swift">Maccy source: StorageSettingsPane.swift</a></li>
+    <li id="s6"><a href="https://www.macrumors.com/2025/11/04/more-spotlight-clipboard-settings-macos-26-1/">MacRumors, Nov 4, 2025: Spotlight clipboard settings in macOS 26.1</a></li>
+    <li id="s7"><a href="https://manual.raycast.com/clipboard-history">Raycast manual: Clipboard History</a></li>
+    <li id="s8"><a href="https://dev.to/jrw0ng/macos-tahoe-has-built-in-clipboard-history-heres-what-its-still-missing-for-developers-2026-4eko">DEV post, Jul 14, 2026 (written by the developer of another clipboard app)</a></li>
+    <li id="s9"><a href="https://support.apple.com/guide/mac-help/mchl40d5b86b/mac">Apple Support: clipboard history in Spotlight</a></li>
+    <li id="s10"><a href="https://pasteapp.io/help/copy-paste-not-working">Paste help: copy and paste not working</a></li>
+    <li id="s11"><a href="https://github.com/p0deje/Maccy/blob/master/Maccy/Models/HistoryItem.swift">Maccy source: HistoryItem.swift and Search.swift</a></li>
+    <li id="s12"><a href="https://github.com/p0deje/Maccy/releases">Maccy release notes</a></li>
+    <li id="s13"><a href="https://github.com/p0deje/Maccy/blob/master/Maccy/Clipboard.swift">Maccy source: Clipboard.swift</a></li>
+    <li id="s14"><a href="https://pasteapp.io/help/what-paste-captures">Paste help: what Paste captures</a></li>
+    <li id="s15"><a href="https://github.com/p0deje/Maccy/pull/1206">Maccy pull request #1206</a></li>
+    <li id="s16"><a href="https://pasteapp.io/help/using-paste-stack">Paste help: using Paste Stack</a></li>
+    <li id="s17"><a href="https://github.com/p0deje/Maccy/discussions/1577">Maccy discussion #1577: Maccy 3 plan</a></li>
+  </ol>
+  </details>
+</section>
+
+<section class="wrap closing">
+  <img class="icon" src="assets/icon-512.png" alt="" width="72" height="72" loading="lazy">
+  <h2>Copy freely. Jar remembers.</h2>
+  <div class="cta">
+    <span class="soon">Coming soon to the Mac App Store</span>
+  </div>
+  <p class="fine">Free · macOS 15 or later · No account</p>
+</section>
+</main>
+
+<footer class="wrap foot">
+  <nav aria-label="Footer"><a href="privacy.html">Privacy policy</a><a href="support.html">Support</a><span>Contact: <span class="mail">dmytro.bakai@gmail.com</span></span></nav>
+  <p>© 2026 Dmytro Bakai. Mac and macOS are trademarks of Apple Inc.</p>
+</footer>
+
+<script>
+(() => {
+  const W = 880, PANEL_SCALE = 0.8, MARGIN = 36 * PANEL_SCALE, GAP = 6 * PANEL_SCALE, CARD_TOP = 64 * PANEL_SCALE;
+  const $ = (id) => document.getElementById(id);
+  const box = $('stageBox'), stage = $('stage'), sceneCopy = $('sceneCopy'), scenePaste = $('scenePaste');
+  const caret = $('caret'), panel = $('panel'), keys = $('keys'), jar = $('jar'), playBtn = $('play'), callout = $('callout');
+  const l2 = $('l2'), i1 = $('i1'), i2 = $('i2');
+  const lines = [...sceneCopy.querySelectorAll('.copies .t')];
+  const stepButtons = [...document.querySelectorAll('#steps button')];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const LINK = 'https://acme.dev/docs/getting-started';
+  const RESOLUTION = 'New Year’s resolution: go to the gym 3 times a week.';
+
+  let scale = 1;
+  const fit = () => { scale = box.clientWidth / W; stage.style.transform = `scale(${scale})`; };
+  new ResizeObserver(fit).observe(box); fit();
+
+  // Logical (unscaled) position of an element inside the stage.
+  const pos = (el) => { const s = stage.getBoundingClientRect(), r = el.getBoundingClientRect();
+    return { x: (r.left - s.left) / scale, y: (r.top - s.top) / scale, w: r.width / scale, h: r.height / scale }; };
+
+  // Playback: a run is cancelled by bumping `runId`; time passes only while playing.
+  let runId = 0, playing = false;
+  const Cancel = Symbol('cancel');
+  const wait = (ms, id) => new Promise((resolve, reject) => {
+    let left = ms, last = performance.now();
+    const tick = (now) => {
+      if (id !== runId) return reject(Cancel);
+      if (playing) left -= now - last;
+      last = now;
+      left <= 0 ? resolve() : requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+
+  const setStep = (n) => stepButtons.forEach((b, i) => b.setAttribute('aria-current', i === n ? 'step' : 'false'));
+  const showKeys = (list) => { keys.innerHTML = list.map(k => `<span>${k}</span>`).join(''); keys.classList.toggle('on', list.length > 0); };
+  const placeCaret = (after) => after.after(caret);
+  const panelState = (s) => panel.querySelectorAll('img').forEach(img => img.classList.toggle('on', img.dataset.s === s));
+  const currentState = () => [...panel.querySelectorAll('img')].find(i => i.classList.contains('on'))?.dataset.s || 'open';
+  // Like the app's "Near text cursor": the panel's left edge at the caret, its top just below the caret's line.
+  const openPanel = (s) => {
+    const p = pos(caret);
+    panel.style.left = `${p.x - MARGIN}px`;
+    panel.style.top = `${p.y + p.h + GAP - MARGIN}px`;
+    panelState(s); panel.classList.add('on');
+  };
+  const closePanel = () => { panel.classList.remove('on'); callout.classList.remove('on'); };
+  const showCallout = () => {
+    const p = pos(panel);
+    callout.style.left = `${p.x + p.w - MARGIN + 14}px`;
+    callout.style.top = `${p.y + MARGIN + CARD_TOP}px`;
+    callout.classList.add('on');
+  };
+  const insert = (span, text) => { span.textContent = text; span.classList.add('new'); setTimeout(() => span.classList.remove('new'), 900); };
+  const scene = (which) => { sceneCopy.classList.toggle('off', which !== 'copy'); scenePaste.classList.toggle('off', which !== 'paste'); };
+  const bump = () => { jar.classList.remove('bump'); void jar.offsetWidth; jar.classList.add('bump'); };
+  const flyToJar = (line) => {
+    if (reduced) return bump();
+    const from = pos(line), to = pos(jar);
+    const ghost = document.createElement('span');
+    ghost.className = 'ghost';
+    if (line.classList.contains('mono')) { ghost.style.fontFamily = 'var(--mono)'; ghost.style.fontSize = '19px'; }
+    ghost.textContent = line.textContent;
+    ghost.style.left = `${from.x}px`; ghost.style.top = `${from.y}px`;
+    stage.appendChild(ghost);
+    const dx = to.x + to.w / 2 - (from.x + from.w / 2), dy = to.y + to.h / 2 - (from.y + from.h / 2);
+    ghost.animate([{ transform: 'none', opacity: 1 }, { transform: `translate(${dx}px, ${dy}px) scale(.06)`, opacity: .2 }],
+                  { duration: 600, easing: 'cubic-bezier(.5,0,.2,1)' }).onfinish = () => { ghost.remove(); bump(); };
+  };
+  const type = async (queries, id, pause) => {
+    for (const q of queries) { showKeys([q.at(-1).toUpperCase()]); panelState(q); await wait(pause, id); }
+  };
+
+  // Chapters: each sets up its own starting state, so a step button can start anywhere.
+  const pasteScene = (first, second) => {
+    scene('paste'); closePanel(); showKeys([]);
+    i1.textContent = first ? LINK : ''; i2.textContent = second ? RESOLUTION : '';
+    l2.classList.toggle('off', !first);
+    placeCaret(first ? i2 : i1);
+  };
+  const setup = [
+    () => { scene('copy'); lines.forEach(l => l.classList.remove('sel')); showKeys([]); closePanel(); },
+    () => pasteScene(false, false),
+    () => pasteScene(true, false),
+    () => pasteScene(true, true),
+  ];
+  const chapters = [
+    async (id) => {
+      setStep(0); await wait(400, id);
+      for (const line of lines) {
+        line.classList.add('sel'); await wait(300, id);
+        showKeys(['⌘', 'C']); await wait(400, id);
+        flyToJar(line); await wait(650, id);
+        showKeys([]); line.classList.remove('sel'); await wait(200, id);
+      }
+      await wait(300, id);
+    },
+    async (id) => {
+      setStep(1); setup[1](); await wait(800, id);
+      showKeys(['⌥', 'V']); await wait(300, id);
+      openPanel('open'); await wait(900, id);
+      showKeys(['↓']); panelState('down'); await wait(800, id);
+      showKeys(['↩']); await wait(200, id);
+      closePanel(); insert(i1, LINK); placeCaret(i1); await wait(900, id);
+      showKeys([]);
+    },
+    async (id) => {
+      setStep(2); setup[2](); await wait(700, id);
+      showKeys(['⌥', 'V']); await wait(300, id);
+      openPanel('open'); await wait(700, id);
+      await type(['g', 'gy', 'gym'], id, 320);
+      showKeys([]); showCallout(); await wait(1600, id);
+      showKeys(['↩']); await wait(200, id);
+      closePanel(); insert(i2, RESOLUTION); placeCaret(i2); await wait(600, id);
+      showKeys([]); await wait(900, id);
+    },
+    async (id) => {
+      setStep(3); setup[3](); await wait(300, id);
+      showKeys(['⌥', 'V']); await wait(300, id);
+      openPanel('open'); await wait(700, id);
+      await type(['t', 'to', 'tok', 'toke', 'token'], id, 220);
+      showKeys([]); await wait(2600, id);
+      showKeys(['esc']); await wait(250, id);
+      closePanel(); await wait(400, id);
+      showKeys([]); await wait(900, id);
+    },
+  ];
+
+  const run = async (from) => {
+    const id = ++runId;
+    setup[from]();
+    try {
+      for (let ch = from; ; ch = (ch + 1) % chapters.length) {
+        if (ch === 0) setup[0]();
+        await chapters[ch](id);
+      }
+    } catch (e) { if (e !== Cancel) throw e; }
+  };
+
+  const setPlaying = (on) => {
+    playing = on;
+    playBtn.setAttribute('aria-pressed', String(on));
+    playBtn.querySelector('span').textContent = on ? 'Pause' : 'Play';
+    playBtn.querySelector('path').setAttribute('d', on ? 'M2 1h3v10H2zM7 1h3v10H7z' : 'M2 1l9 5-9 5z');
+  };
+
+  // Resting frame: the search for "gym" has found the January note.
+  const rest = () => { setup[2](); setStep(2); openPanel('gym'); showCallout(); };
+  rest();
+  let started = false;
+  const start = () => { started = true; setPlaying(true); run(0); };
+  playBtn.addEventListener('click', () => {
+    if (!started) start(); else setPlaying(!playing);
+    playBtn.dataset.user = playing ? '' : 'paused';
+  });
+  stepButtons.forEach(b => b.addEventListener('click', () => {
+    started = true; playBtn.dataset.user = ''; setPlaying(true); run(Number(b.dataset.ch));
+  }));
+  if (!reduced && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !started) start();
+      else if (started) setPlaying(entry.isIntersecting && playBtn.dataset.user !== 'paused');
+    }, { threshold: .45 }).observe(box);
+  }
+  // The caret moves when the web font arrives: place an open panel (and its note) again.
+  document.fonts?.ready.then(() => {
+    if (!panel.classList.contains('on')) return;
+    const hadCallout = callout.classList.contains('on');
+    openPanel(currentState()); if (hadCallout) showCallout();
+  });
+})();
+</script>
+</body>
+</html>

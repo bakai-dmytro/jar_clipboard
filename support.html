@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support – Jar</title>
+<meta name="description" content="Help for Jar, the clipboard history app for Mac: the Accessibility permission, paste modes, where your data is stored, how to clear it, and keyboard shortcuts.">
+<meta name="color-scheme" content="light">
+<link rel="icon" type="image/png" href="assets/icon-512.png">
+<meta property="og:title" content="Support – Jar">
+<meta property="og:description" content="Help for Jar, the clipboard history app for Mac: the Accessibility permission, paste modes, where your data is stored, how to clear it, and keyboard shortcuts.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bakai-dmytro.github.io/jar_clipboard/support.html">
+<meta property="og:image" content="https://bakai-dmytro.github.io/jar_clipboard/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Same tokens, top bar and type scale as index.html. */
+:root{--bg:#ffffff;--ink:#1b1c1f;--muted:#6c6f76;--line:#e6e7ea;--soft:#f4f5f6;--accent:#0b6e5f;--mark:#fff3bf;--mark-ink:#5c4400;
+  --font:"Geist","Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color-scheme:light}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 20px;background:var(--bg);color:var(--ink);font:17px/1.65 var(--font);-webkit-font-smoothing:antialiased;overflow-wrap:break-word}
+.col{max-width:720px;margin:0 auto}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion:no-preference){a{transition:color .15s}}
+.top{display:flex;align-items:center;gap:16px;min-height:64px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:600;font-size:1.05rem;letter-spacing:-.01em}
+.brand img{display:block;width:28px;height:28px}
+.top nav{margin-left:auto;display:flex;gap:20px;font-size:.92rem}
+.top nav a{color:var(--muted);text-decoration:none}
+.top nav a:hover,.top nav a[aria-current]{color:var(--ink)}
+.top nav a[aria-current]{text-decoration-line:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:8px}
+h1,h2{font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+h1{font-size:clamp(2rem,7vw,2.6rem);line-height:1.12;margin:0 0 .4em}
+h2{font-size:1.4rem;line-height:1.25;margin:2.4em 0 .6em;scroll-margin-top:24px}
+p,ul,ol{margin:0 0 1em}
+ul,ol{padding-left:1.25em}
+li{margin:.45em 0}
+code{font:.86em var(--mono);background:var(--soft);padding:.1em .35em;border-radius:4px;overflow-wrap:anywhere}
+kbd{display:inline-block;min-width:1.7em;text-align:center;font:500 .86em/1.1 var(--mono);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:.15em .4em;white-space:nowrap}
+mark{background:var(--mark);color:var(--mark-ink);border-radius:3px;padding:0 .25em}
+.muted{color:var(--muted)}
+.doc{padding:64px 0 72px}
+.toc{margin:28px 0 0;padding:20px 0 4px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:.95rem}
+.toc a{color:var(--ink);text-decoration-color:var(--line)}
+.toc a:hover{color:var(--accent);text-decoration-color:currentColor}
+.aside{border-left:2px solid var(--line);padding:2px 0 2px 16px;margin:1.4em 0}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:20px 0}
+th,td{padding:10px 16px 10px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+thead th{color:var(--muted);font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+td:first-child{width:32%}
+.foot{border-top:1px solid var(--line);padding:28px 0 56px;font-size:.85rem;color:var(--muted)}
+.foot p{margin:0}
+.foot a{color:var(--muted);text-decoration-color:var(--line)}
+.foot a:hover{color:var(--ink)}
+@media (max-width:600px){.doc{padding:44px 0 56px}}
+</style>
+</head>
+<body>
+<header class="col top">
+  <a class="brand" href="./"><img src="assets/icon-512.png" alt="" width="28" height="28">Jar</a>
+  <nav aria-label="Main"><a href="./#faq">FAQ</a><a href="privacy.html">Privacy</a><a href="support.html" aria-current="page">Support</a></nav>
+</header>
+<main id="main" class="col doc">
+  <h1>Jar support</h1>
+  <p>Answers to the questions people ask most. If yours isn't here, write to <a href="mailto:dmytro.bakai@gmail.com">dmytro.bakai@gmail.com</a>.</p>
+  <nav class="toc" aria-label="On this page">
+    <ol>
+      <li><a href="#why-accessibility">Why does Jar ask for the Accessibility permission?</a></li>
+      <li><a href="#enable">How do I turn direct paste on, or back on?</a></li>
+      <li><a href="#copy-only">Why does Return only copy?</a></li>
+      <li><a href="#placement">Where does the panel open?</a></li>
+      <li><a href="#stored">What is stored, and where?</a></li>
+      <li><a href="#not-recorded">What does Jar not record?</a></li>
+      <li><a href="#clear">How do I clear my data or remove Jar?</a></li>
+      <li><a href="#shortcuts">Keyboard shortcuts</a></li>
+      <li><a href="#hotkey">Can I change ⌥V?</a></li>
+      <li><a href="#restricted">What does “Clipboard access is restricted” mean?</a></li>
+      <li><a href="#requirements">Which Macs and macOS versions are supported?</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="why-accessibility">Why does Jar ask for the Accessibility permission?</h2>
+  <p>To paste into the app you were using, Jar puts your item on the clipboard and then presses <kbd>⌘V</kbd> for you. macOS allows an app to send that keystroke only after you approve it, and it lists that approval under <strong>Accessibility</strong>.</p>
+  <ul>
+    <li>It is optional. Without it, Jar copies the item and you press <kbd>⌘V</kbd> yourself.</li>
+    <li>Jar asks for Accessibility once, on first launch, with the welcome window explaining why. After that it asks only after you choose <strong>Enable</strong>: in the welcome window, in the “Direct paste is off” banner, or in Settings → Privacy.</li>
+    <li>With the same permission, Jar can read where your text cursor is on screen, so the panel opens next to it. It reads only that position, never the text or any other content of other apps. This works only where macOS allows it.</li>
+    <li>Jar does not use Input Monitoring, Screen Recording, Full Disk Access or Automation, and it has no network access.</li>
+  </ul>
+
+  <h2 id="enable">How do I turn direct paste on, or back on?</h2>
+  <ol>
+    <li>Open Jar's Settings (menu bar icon → Settings…) and go to <strong>Privacy</strong>. Next to “Direct paste”, click <strong>Enable</strong>. The first time, macOS shows its own prompt.</li>
+    <li>If the prompt does not appear, click <strong>Open System Settings</strong>. In Privacy &amp; Security → Accessibility, turn on Jar.</li>
+    <li>If Jar is listed and switched on but still only copies (this can happen after an update), select it, remove it with the minus button, then add it again with the plus button or the Enable button.</li>
+    <li>macOS applies the permission after Jar restarts. Settings → Privacy then shows “Turned on, restart Jar to finish” with a <strong>Restart</strong> button.</li>
+  </ol>
+  <p class="aside"><strong>Newer macOS versions.</strong> Apple announced a reorganization of these privacy settings for macOS 27.3 (in beta as of November 2026). If you can't find the switch where these steps say, use the Enable and Open System Settings buttons in Jar's Settings → Privacy, which take you to the current place.</p>
+
+  <h2 id="copy-only">Why does Return only copy?</h2>
+  <p>Because the Accessibility permission is off. Jar then puts the item on the clipboard and shows <em>“Copied. Press ⌘V — enable direct paste in Settings”</em>. The panel also shows a slim “Direct paste is off · Enable” line under the search field, and its shortcuts list (the <kbd>?</kbd> button, or <kbd>⌘/</kbd>) says <kbd>↩</kbd> copies, then press <kbd>⌘V</kbd> in your app. Press <kbd>⌘V</kbd> to paste, or <a href="#enable">turn direct paste on</a>.</p>
+  <p>If the permission is on and you see <em>“Copied. Press ⌘V”</em>, sending the keystroke failed for that paste. A few apps, such as some remote-desktop windows, ignore keystrokes sent by other apps. The item is still on your clipboard.</p>
+  <p>If the permission is on and Jar still only copies, open Settings → Privacy → <strong>Paste isn't working?</strong> It checks Accessibility, Secure Input, clipboard access, capture and your shortcut, and offers a fix for each.</p>
+  <p>When another app turns on Secure Input (a password field, some terminals), macOS blocks pasting for every app. Jar then names that app and asks you to press <kbd>⌘V</kbd> yourself.</p>
+  <p><kbd>⌘↩</kbd> always copies without pasting, on purpose.</p>
+
+  <h2 id="placement">Where does the panel open?</h2>
+  <p>Choose in Settings → General → “Open the panel at”:</p>
+  <ul>
+    <li><strong>Near text cursor</strong> (the default): next to your text cursor where macOS allows Jar to read its position. This needs the Accessibility permission. When an app does not expose its text cursor, the panel opens at the focused field or window, or at the mouse pointer.</li>
+    <li><strong>Mouse pointer</strong>, <strong>Center of screen</strong> or <strong>Last position</strong>.</li>
+  </ul>
+  <p>When you open the panel from the menu bar icon, it opens below the icon.</p>
+
+  <h2 id="stored">What is stored, and where?</h2>
+  <p>Everything stays on your Mac. Jar stores:</p>
+  <ul>
+    <li>the text you copied, plus its rich-text and HTML versions when the source app provides them (up to 512 KB each);</li>
+    <li>images you copied, as PNG files, with a small thumbnail;</li>
+    <li>which app each item came from, when it was copied and last used, and whether it is pinned;</li>
+    <li>your settings.</li>
+  </ul>
+  <p>The history database and an Images folder live inside Jar's sandbox container, the folder named Jar in <code>~/Library/Containers/</code>. Nothing is sent anywhere: Jar has no network access. Its logs record item kinds and sizes, never what you copied.</p>
+  <p>Jar keeps up to 1,000 unpinned items by default. You can choose 100 to 10,000 in Settings → History, and optionally delete items older than 1, 7, 30 or 90 days. Pinned items are never removed automatically.</p>
+
+  <h2 id="not-recorded">What does Jar not record?</h2>
+  <ul>
+    <li>Items that apps mark as confidential or temporary. Password managers do this.</li>
+    <li>Anything copied in Apple Passwords, Keychain Access or 1Password (ignored by default), and in any app you add under Settings → Privacy → Ignored apps.</li>
+    <li>Anything copied while capture is paused (menu bar → Pause Capture).</li>
+    <li>The next copy after you choose Ignore Next Copy in the menu bar.</li>
+    <li>Copied files, text larger than 5 MB and images larger than 25 MB.</li>
+    <li>Images, if you turn off Settings → History → Capture images.</li>
+  </ul>
+  <p>Not every app marks its sensitive copies. If one of your tools doesn't, add it to Ignored apps or pause capture while you use it.</p>
+
+  <h2 id="clear">How do I clear my data or remove Jar?</h2>
+  <ul>
+    <li><strong>One item:</strong> select it in the panel and press <kbd>⌘⌫</kbd>.</li>
+    <li><strong>The last few minutes:</strong> menu bar icon → Forget → Last 5, 15, 30 or 60 Minutes. Pins are kept.</li>
+    <li><strong>All unpinned items:</strong> press <kbd>⇧⌘⌫</kbd> in the panel, choose Clear Unpinned History… from the menu bar icon, or use Settings → History → Clear unpinned history…. Pins are kept.</li>
+    <li><strong>Everything, including pins:</strong> Settings → History → Clear everything, including pins….</li>
+    <li><strong>Remove every trace:</strong> quit Jar from the menu bar, move it to the Trash, then delete the folder named Jar in <code>~/Library/Containers/</code>. macOS keeps an app's container when you delete the app.</li>
+  </ul>
+  <p class="muted">Clearing removes items from Jar's history right away. The database file can keep the space it used for a while; deleting the container folder removes everything.</p>
+
+  <h2 id="shortcuts">Keyboard shortcuts</h2>
+  <table>
+    <thead><tr><th scope="col">Keys</th><th scope="col">What happens</th></tr></thead>
+    <tbody>
+      <tr><td><kbd>⌥V</kbd></td><td>Open or close the panel (changeable)</td></tr>
+      <tr><td><kbd>↩</kbd></td><td>Paste the selected item</td></tr>
+      <tr><td><kbd>⇧↩</kbd></td><td>Paste as plain text</td></tr>
+      <tr><td><kbd>⌘↩</kbd></td><td>Copy only, without pasting</td></tr>
+      <tr><td><kbd>⌘1</kbd>–<kbd>⌘9</kbd></td><td>Paste one of the first nine rows</td></tr>
+      <tr><td><kbd>↑</kbd> <kbd>↓</kbd> or <kbd>⌃N</kbd> <kbd>⌃P</kbd></td><td>Move the selection (wraps at the ends)</td></tr>
+      <tr><td>Page Up/Down, Home/End</td><td>Jump a page, or to the first or last row</td></tr>
+      <tr><td><kbd>⌘P</kbd></td><td>Pin or unpin</td></tr>
+      <tr><td><kbd>⌘⌫</kbd></td><td>Delete the item</td></tr>
+      <tr><td><kbd>⇧⌘⌫</kbd></td><td>Clear unpinned items (asks first)</td></tr>
+      <tr><td><kbd>Space</kbd></td><td>Preview the whole item (when the search field is empty)</td></tr>
+      <tr><td><kbd>Esc</kbd></td><td>Close the preview, then clear the search, then close the panel</td></tr>
+      <tr><td>Click a row</td><td>Paste it</td></tr>
+      <tr><td>Click outside</td><td>Close the panel</td></tr>
+    </tbody>
+  </table>
+  <p>With Settings → General → “Always paste as plain text” on, <kbd>↩</kbd> and <kbd>⌘1</kbd>–<kbd>⌘9</kbd> paste plain text and <kbd>⇧↩</kbd> pastes with formatting. Images always paste as images. You can hide the ⌘1–9 hints in Settings → General.</p>
+
+  <h2 id="hotkey">Can I change ⌥V?</h2>
+  <p>Yes: Settings → General → “Open clipboard history”, or in the welcome window. ⌥V normally types a character (√ on a US keyboard); while Jar runs, the shortcut takes that over in every app, so pick another shortcut if you type it. Some macOS 15 releases also restrict shortcuts that use only Option; if ⌥V does nothing, pick another. The menu bar icon always opens the panel too.</p>
+
+  <h2 id="restricted">What does “Clipboard access is restricted” mean?</h2>
+  <p>Recent versions of macOS (15.4 and later) can restrict whether an app may read the clipboard on its own. If Jar is set to ask or is denied, it shows this banner and a status row in Settings → Privacy. Jar never works around your choice. To record your history, allow Jar in Privacy &amp; Security (the Open Settings button takes you there).</p>
+
+  <h2 id="requirements">Which Macs and macOS versions are supported?</h2>
+  <p>macOS 15 or later. Jar is in English for now. It runs from the menu bar and has no Dock icon. To start it automatically, turn on Settings → General → Launch at login.</p>
+  <p>Jar does not sync. Your history exists only on the Mac where you copied it.</p>
+
+  <h2 id="contact">Contact</h2>
+  <p>Email <a href="mailto:dmytro.bakai@gmail.com">dmytro.bakai@gmail.com</a>. Please include your Jar version (Settings → About), your macOS version, and what you expected to happen. Don't send clipboard contents or screenshots that show passwords or keys.</p>
+</main>
+<footer class="col foot">
+  <p><a href="./">Home</a> · <a href="privacy.html">Privacy policy</a> · Mac App Store: coming soon · © 2026 Dmytro Bakai. Mac and macOS are trademarks of Apple Inc.</p>
+</footer>
+</body>
+</html>
